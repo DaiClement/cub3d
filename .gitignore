@@ -1,0 +1,8 @@
+cub3D
+*.o
+*/*.o
+*/*.a
+DS*
+*.swp
+*/*.swp
+textures
