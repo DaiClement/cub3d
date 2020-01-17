@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_check_atoi_max_min.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/11 10:11:35 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/14 11:23:10 by cdai             ###   ########.fr       */
+/*   Created: 2020/01/14 10:27:28 by cdai              #+#    #+#             */
+/*   Updated: 2020/01/17 11:32:41 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int av, char **ac)
+int	ft_check_atoi_max_min(char *nb)
 {
-	(void)ac;
-	if (av == 1)
+	int i;
+	int negative;
+
+	i = 0;
+	negative = 0;
+	if (nb[i] == '-')
 	{
-		ft_putstr_fd("ERROR: cub3D needs at least 1 argument\n", 0);
-		return (0);
+		negative = 1;
+		i++;
 	}
-	else if (av >= 2)
-	{
-		ft_launch_game(ac[1]);
+	while (ft_isdigit(nb[i]))
+		i++;
+	if ((negative && (i > 12 || i < 2)) || (!negative && (i > 11 || i < 1)))
 		return (0);
-	}
+	else if (!(nb[i] == 44 || nb[i] == 0))
+		return (0);
+	printf("%d\n", nb[i]);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 12:43:45 by cdai              #+#    #+#             */
-/*   Updated: 2019/11/08 15:57:09 by cdai             ###   ########.fr       */
+/*   Updated: 2020/01/11 10:26:05 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include "get_next_line.h"
 
 typedef struct	s_list
 {

@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_free_scene.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/11 10:11:35 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/14 11:23:10 by cdai             ###   ########.fr       */
+/*   Created: 2020/01/11 19:40:46 by cdai              #+#    #+#             */
+/*   Updated: 2020/01/11 22:10:02 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int av, char **ac)
+void	ft_free_scene(t_scene **scene)
 {
-	(void)ac;
-	if (av == 1)
+	int	i;
+
+	i = 0;
+	if (*scene)
 	{
-		ft_putstr_fd("ERROR: cub3D needs at least 1 argument\n", 0);
-		return (0);
+		while (i < 5)
+		{
+			if ((*scene)->sprite[i])
+				free((*scene)->sprite[i]);
+			i++;
+		}
+//		free((*scene)->map);
 	}
-	else if (av >= 2)
-	{
-		ft_launch_game(ac[1]);
-		return (0);
-	}
+	free(*scene);
+	*scene = 0;
 }

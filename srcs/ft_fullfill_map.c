@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_fullfill_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/11 10:11:35 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/14 11:23:10 by cdai             ###   ########.fr       */
+/*   Created: 2020/01/15 12:09:36 by cdai              #+#    #+#             */
+/*   Updated: 2020/01/17 11:57:42 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int av, char **ac)
+int	ft_fullfill_map(t_scene **scene, char **splited_data, t_scene **status)
 {
-	(void)ac;
-	if (av == 1)
+	int i;
+
+	(void)scene;
+	i = 0;
+	if (!(*status)->map)
+		if (!((*status)->map = malloc(sizeof(*((*status)->map)))))
+			return (-1);
+	if (!(*scene)->map)
+		if (!((*scene)->map = malloc(sizeof(*((*scene)->map)))))
+			return (-1);
+	while (splited_data[i])
 	{
-		ft_putstr_fd("ERROR: cub3D needs at least 1 argument\n", 0);
-		return (0);
+		printf("%s\n", splited_data[i]);
+		(*(*scene)->map) = ft_strjoin();
+		i++;
 	}
-	else if (av >= 2)
-	{
-		ft_launch_game(ac[1]);
-		return (0);
-	}
+	return (0);
 }

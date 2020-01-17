@@ -6,11 +6,16 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2020/01/11 09:55:02 by cdai             ###   ########.fr        #
+#    Updated: 2020/01/15 15:57:13 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-LIBFT_PATH	= ./libft/
+INCLUDES	=	\
+				./includes/cub3d.h\
+				./libft/libft.h\
+				./libft/get_next_line.h\
+
+LIBFT_PATH	=	./libft/
 
 LIBFT_SRCS	=	\
 				${LIBFT_PATH}ft_memset.c\
@@ -61,8 +66,22 @@ LIBFT_SRCS	=	\
 
 LIBFT_OBJS	=	${LIBFT_SRCS:.c=.o}
 
-SRCS		=	srcs/ft_check_file_extention.c\
-				srcs/cub3D.c\
+SRCS		=	\
+				srcs/ft_check_file_extention.c\
+				srcs/cub3d.c\
+				srcs/ft_parse_cub.c\
+				srcs/ft_launch_game.c\
+				srcs/ft_fullfill_scene.c\
+				srcs/ft_free_splited.c\
+				srcs/ft_check_scene_element.c\
+				srcs/ft_fullfill_resolution.c\
+				srcs/ft_fullfill_path.c\
+				srcs/ft_free_scene.c\
+				srcs/ft_fullfill_floor.c\
+				srcs/ft_fullfill_ceilling.c\
+				srcs/ft_check_atoi_max_min.c\
+				srcs/ft_isinrange.c\
+				srcs/ft_fullfill_map.c\
 
 OBJS		=	${SRCS:.c=.o}
 
@@ -80,9 +99,10 @@ AR			=	ar rc
 LIBFT		=	libft.a
 
 .c.o:
-				${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I${LIBFT_PATH} -I./includes/
+				${CC} ${CFLAGS} -c $< -o ${<:.c=.o}\
+				-I${LIBFT_PATH} -I./includes/
 
-${NAME}:		${OBJS}
+${NAME}:		${OBJS} ${LIBFT_OBJS} ${INCLUDES}
 				make -C libft
 				${CC} -o ${NAME}\
 				${FLAGS}\
@@ -109,17 +129,14 @@ fclean:
 re:				fclean all
 
 test:
-				${CC} -o ${NAME}\
-				${FLAGS}\
-				${GRAPH_FLAGS}\
-				${OBJS}\
-				-I${LIBFT_PATH}\
-				-I./includes/\
-				-L${LIBFT_PATH} -lft
+				./${NAME} scene_description/subject.cub
 
 norm:
-				make norm -C ${LIBFT_SRCS}
-				norminette -R CheckForbiddenSourceHeader ${SRCS}
+				#make norm -C ${LIBFT_PATH}
+				norminette -R CheckForbiddenSourceHeader srcs includes
+
+leaks:
+				leaks ${NAME}
 
 commit:
 				git add -A && git commit

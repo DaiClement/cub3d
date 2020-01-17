@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_free_splited.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/11 10:11:35 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/14 11:23:10 by cdai             ###   ########.fr       */
+/*   Created: 2020/01/11 11:54:31 by cdai              #+#    #+#             */
+/*   Updated: 2020/01/13 09:36:56 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int av, char **ac)
+void	ft_free_splited(char **splited_data, char *line)
 {
-	(void)ac;
-	if (av == 1)
+	int	i;
+
+	i = 0;
+	if (splited_data)
 	{
-		ft_putstr_fd("ERROR: cub3D needs at least 1 argument\n", 0);
-		return (0);
+		while (splited_data[i])
+		{
+			free(splited_data[i]);
+			splited_data[i] = 0;
+			i++;
+		}
+		free(splited_data);
 	}
-	else if (av >= 2)
-	{
-		ft_launch_game(ac[1]);
-		return (0);
-	}
+	if (line)
+		free(line);
+	splited_data = 0;
+	line = 0;
 }

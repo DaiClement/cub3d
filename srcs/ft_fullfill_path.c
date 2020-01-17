@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_fullfill_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/11 10:11:35 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/14 11:23:10 by cdai             ###   ########.fr       */
+/*   Created: 2020/01/11 18:24:31 by cdai              #+#    #+#             */
+/*   Updated: 2020/01/14 11:28:46 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int av, char **ac)
+int	ft_fullfill_path(t_scene **scene, char **splited_data, t_scene **status,
+	int i)
 {
-	(void)ac;
-	if (av == 1)
-	{
-		ft_putstr_fd("ERROR: cub3D needs at least 1 argument\n", 0);
-		return (0);
-	}
-	else if (av >= 2)
-	{
-		ft_launch_game(ac[1]);
-		return (0);
-	}
+	if ((*scene)->sprite[i])
+		return (-1);
+	if (!splited_data[1] || splited_data[2])
+		return (-1);
+	(void)status;
+	(*scene)->sprite[i] = ft_strdup(splited_data[1]);
+	(*status)->sprite[i] = ft_strdup(" ");
+	return (0);
 }
