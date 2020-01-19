@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 10:56:01 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/19 22:30:07 by cdai             ###   ########.fr       */
+/*   Updated: 2020/01/19 22:39:55 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void		ft_launch_game(const char *filename)
 
 	if (!(scene = ft_parse_cub(filename)))
 		return ;
-	printf("coucou\n");
 printf("Resolution x: %d\n",scene->resolution[0]);
 printf("Resolution y: %d\n",scene->resolution[1]);
 printf("North textures path: %s\n", scene->sprite[0]);

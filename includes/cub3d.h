@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 17:23:27 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/19 22:28:52 by cdai             ###   ########.fr       */
+/*   Updated: 2020/01/19 22:38:52 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,12 @@ void			ft_launch_game(const char *filename);
 t_scene			*ft_fullfill_scene(const char *filename);
 void			*ft_free_all(t_scene **scene, t_scene **status, char **line,
 	char **splited_data);
-//void			ft_free_splited(char **splited_data, char *line);
 int				ft_check_scene_element(t_scene **scene, char **splited_data,
 	t_scene **status);
 int				ft_fullfill_resolution(t_scene **scene, char **splited_data,
 	t_scene **status);
 int				ft_fullfill_path(t_scene **scene, char **splited_data,
 	t_scene **status, int i);
-//void			ft_free_scene(t_scene **scene);
 int				ft_fullfill_floor(t_scene **scene, char **splited_data,
 	t_scene **status);
 int				ft_fullfill_ceilling(t_scene **scene, char **splited_data,

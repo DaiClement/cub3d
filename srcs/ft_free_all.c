@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 22:11:56 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/19 22:31:52 by cdai             ###   ########.fr       */
+/*   Updated: 2020/01/19 22:45:05 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static void	ft_free_t_scene(t_scene **scene)
 		free(*scene);
 		*scene = NULL;
 	}
-	*scene = 0;
 }
 
 void		*ft_free_all(t_scene **scene, t_scene **status, char **line,

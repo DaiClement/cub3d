@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 11:19:21 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/19 22:30:38 by cdai             ###   ########.fr       */
+/*   Updated: 2020/01/19 22:47:29 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_check_status(t_scene **status)
 	i = 0;
 	while (i < 5)
 	{
-		if (((*status)->sprite)[i])
+		if (!((*status)->sprite)[i])
 			return (-1);
 		i++;
 	}
@@ -65,7 +65,6 @@ t_scene		*ft_fullfill_scene(const char *filename)
 		ft_free_all(NULL, NULL, &line, splited_data);
 	}
 	ft_check_n_parse_map(&scene, &status);
-	free(line);
 	close(fd);
 printf("Resolution x: %d\n",status->resolution[0]);
 printf("Resolution y: %d\n",status->resolution[1]);
@@ -78,8 +77,8 @@ printf("Floor color RGBA: %d,%d,%d,%d\n", status->floor[0], status->floor[1], st
 printf("Ceilling color RGBA: %d,%d,%d,%d\n", status->ceilling[0], status->ceilling[1], status->ceilling[2], status->ceilling[3]);
 printf("Map : %s\n", *status->map);
 printf("Orientation : %c\n", status->orientation);
-	//if (ft_check_status(&status) == -1)
-	//	return (ft_free_all(&scene, &status, &line, splited_data));
-	printf("pouet\n");
+	if (ft_check_status(&status) == -1)
+		return (ft_free_all(&scene, &status, &line, NULL));
+	ft_free_all(NULL, &status, &line, NULL);
 	return (scene);
 }
