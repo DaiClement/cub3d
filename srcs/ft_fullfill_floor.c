@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:04:55 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/17 11:29:26 by cdai             ###   ########.fr       */
+/*   Updated: 2020/01/19 21:13:07 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ int	ft_fullfill_floor(t_scene **scene, char **splited_data, t_scene **status)
 		nb_comma++;
 	}
 	(*status)->floor[0] = 1;
-	return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 13:42:19 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/14 11:26:12 by cdai             ###   ########.fr       */
+/*   Updated: 2020/01/19 21:13:15 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ int	ft_fullfill_resolution(t_scene **scene, char **splited_data,
 		return (-1);
 	(*status)->resolution[0] = 1;
 	(*status)->resolution[1] = 1;
-	return (0);
+	return (1);
 }

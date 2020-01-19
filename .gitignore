@@ -3,6 +3,7 @@ cub3D
 */*.o
 */*.a
 DS*
+*/*DS*
 *.swp
 */*.swp
 textures

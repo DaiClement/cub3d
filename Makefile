@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2020/01/15 15:57:13 by cdai             ###   ########.fr        #
+#    Updated: 2020/01/19 22:28:58 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ LIBFT_SRCS	=	\
 				${LIBFT_PATH}ft_lstmap.c\
 				${LIBFT_PATH}get_next_line.c\
 				${LIBFT_PATH}get_next_line_utils.c\
+				${LIBFT_PATH}ft_charchr.c\
 
 LIBFT_OBJS	=	${LIBFT_SRCS:.c=.o}
 
@@ -72,16 +73,16 @@ SRCS		=	\
 				srcs/ft_parse_cub.c\
 				srcs/ft_launch_game.c\
 				srcs/ft_fullfill_scene.c\
-				srcs/ft_free_splited.c\
+				srcs/ft_free_all.c\
 				srcs/ft_check_scene_element.c\
 				srcs/ft_fullfill_resolution.c\
 				srcs/ft_fullfill_path.c\
-				srcs/ft_free_scene.c\
 				srcs/ft_fullfill_floor.c\
 				srcs/ft_fullfill_ceilling.c\
 				srcs/ft_check_atoi_max_min.c\
 				srcs/ft_isinrange.c\
 				srcs/ft_fullfill_map.c\
+				srcs/ft_check_n_parse_map.c
 
 OBJS		=	${SRCS:.c=.o}
 

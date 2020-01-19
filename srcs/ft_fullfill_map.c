@@ -6,29 +6,47 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 12:09:36 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/17 11:57:42 by cdai             ###   ########.fr       */
+/*   Updated: 2020/01/19 21:14:13 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_fullfill_map(t_scene **scene, char **splited_data, t_scene **status)
+static int	ft_init_map(t_scene **scene, t_scene **status)
 {
-	int i;
+	if (!((*status)->map = ft_calloc(2, sizeof(*(*status)->map))))
+		return (0);
+	if (!((*scene)->map = ft_calloc(2, sizeof(*(*scene)->map))))
+		return (0);
+	return (1);
+}
 
-	(void)scene;
+int			ft_fullfill_map(t_scene **scene, char **splited_data,
+	t_scene **status)
+{
+	int		i;
+	char	*temp;
+	char	*result;
+
 	i = 0;
 	if (!(*status)->map)
-		if (!((*status)->map = malloc(sizeof(*((*status)->map)))))
+		if (!ft_init_map(scene, status))
 			return (-1);
-	if (!(*scene)->map)
-		if (!((*scene)->map = malloc(sizeof(*((*scene)->map)))))
-			return (-1);
+	if (!(*(*scene)->map))
+		*(*scene)->map = ft_calloc(1, sizeof((*(*scene)->map)));
+	result = ft_calloc(1, 1);
 	while (splited_data[i])
 	{
-		printf("%s\n", splited_data[i]);
-		(*(*scene)->map) = ft_strjoin();
+		temp = result;
+		result = ft_strjoin(temp, splited_data[i]);
+		free(temp);
 		i++;
 	}
-	return (0);
+	temp = ft_strjoin(result, "\n");
+	free(result);
+	result = *(*scene)->map;
+	*(*scene)->map = ft_strjoin(result, temp);
+	free(temp);
+	free(result);
+	return (1);
 }

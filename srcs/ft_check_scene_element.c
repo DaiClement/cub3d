@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 12:23:05 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/17 11:57:21 by cdai             ###   ########.fr       */
+/*   Updated: 2020/01/19 21:26:04 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_check_ready_to_fullfill_map(t_scene **status)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 5)
@@ -33,19 +33,16 @@ static int	ft_check_ready_to_fullfill_map(t_scene **status)
 int			ft_check_scene_element(t_scene **scene, char **splited_data,
 	t_scene **status)
 {
-	const	char *map[8] = {"NO", "SO", "WE", "EA", "S", "R", "F", "C"};
-	int		i;
+	const char	*map[8] = {"NO", "SO", "WE", "EA", "S", "R", "F", "C"};
+	int			i;
 
 	i = 0;
 	if (splited_data[0] == NULL)
-		return (0);
+		return (1);
 	while (i < 8)
 	{
 		if (ft_check_ready_to_fullfill_map(status))
-		{
-			ft_fullfill_map(scene, splited_data, status);
-			i = 8;
-		}
+			return (ft_fullfill_map(scene, splited_data, status));
 		else if (ft_strncmp(splited_data[0], map[i], ft_strlen(map[i])) == 0)
 		{
 			if (i == 5)
