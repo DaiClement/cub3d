@@ -1,45 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   ft_dtoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/11 10:11:35 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/27 16:21:40 by cdai             ###   ########.fr       */
+/*   Created: 2020/01/28 16:48:33 by cdai              #+#    #+#             */
+/*   Updated: 2020/01/28 16:53:20 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-static int	ft_check_main_arg(int av, char **ac)
+int	ft_dtoi(double nb)
 {
 	int	i;
 
 	i = 0;
-	while (i < av)
+	if (nb < 0)
 	{
-		if (ft_strncmp(ac[i], "--save", 6))
-			return (1);
+		while (i > nb)
+			i--;
 		i++;
 	}
-	return (0);
-}
-
-int			main(int av, char **ac)
-{
-	int	save;
-
-	save = ft_check_main_arg(av, ac);
-	if (av == 1)
+	else
 	{
-		ft_putstr_fd("ERROR: cub3D needs at least 1 argument\n", 0);
-		return (0);
+		while (i < nb)
+			i++;
+		i--;
 	}
-	else if (av >= 2)
-	{
-		ft_launch_game(ac[1]);
-		while(1);
-		return (0);
-	}
+	return (i);
 }

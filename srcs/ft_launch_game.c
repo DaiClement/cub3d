@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 10:56:01 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/19 22:39:55 by cdai             ###   ########.fr       */
+/*   Updated: 2020/01/29 18:37:34 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,79 @@
 
 void		ft_launch_game(const char *filename)
 {
-	t_scene	*scene;
+	t_game_data *data;	
+	//t_scene	*scene;
+	//void	*image;
 
-	if (!(scene = ft_parse_cub(filename)))
-		return ;
-printf("Resolution x: %d\n",scene->resolution[0]);
-printf("Resolution y: %d\n",scene->resolution[1]);
-printf("North textures path: %s\n", scene->sprite[0]);
-printf("South textures path: %s\n", scene->sprite[1]);
-printf("West textures path: %s\n", scene->sprite[2]);
-printf("East textures path: %s\n", scene->sprite[3]);
-printf("Sprite textures path: %s\n", scene->sprite[4]);
-printf("Floor color RGBA: %d,%d,%d,%d\n", scene->floor[0], scene->floor[1], scene->floor[2], scene->floor[3]);
-printf("Ceilling color RGBA: %d,%d,%d,%d\n", scene->ceilling[0], scene->ceilling[1], scene->ceilling[2], scene->ceilling[3]);
+	data = ft_calloc(1, sizeof(*data));
+	if (!(data->scene = ft_parse_cub(data, filename)))
+		return ft_putstr_fd("Error: scene's parsing error.", 1);
+	data->mlx = ft_calloc(1, sizeof(*(data->mlx)));
+	data->mlx->ptr = mlx_init();
+	data->mlx->win = mlx_new_window(data->mlx->ptr, data->scene->resolution[0], data->scene->resolution[1], "cub3D");
+
+printf("Resolution x: %d\n",data->scene->resolution[0]);
+printf("Resolution y: %d\n",data->scene->resolution[1]);
+printf("North textures path: %s\n", data->scene->sprite[0]);
+printf("South textures path: %s\n", data->scene->sprite[1]);
+printf("West textures path: %s\n", data->scene->sprite[2]);
+printf("East textures path: %s\n", data->scene->sprite[3]);
+printf("Sprite textures path: %s\n", data->scene->sprite[4]);
+printf("Floor color RGBA: %d,%d,%d,%d\n", data->scene->floor[0], data->scene->floor[1], data->scene->floor[2], data->scene->floor[3]);
+printf("Ceilling color RGBA: %d,%d,%d,%d\n", data->scene->ceilling[0], data->scene->ceilling[1], data->scene->ceilling[2], data->scene->ceilling[3]);
 int i = 0;
 printf("Map : \n");
-while (scene->map[i])
+while (data->scene->map[i])
 {
-	printf("%s\n", scene->map[i]);
+	printf("%s\n", data->scene->map[i]);
 	i++;
 }
-printf("Orientation : %c\n", scene->orientation);
-	ft_free_all(&scene, NULL, NULL, NULL);
+printf("Orientation : %c\n", data->scene->orientation);
+
+
+
+	data->image = mlx_new_image(data->mlx->ptr, data->scene->resolution[0], data->scene->resolution[1]);
+
+
+	data->camera->posX += 0.5;
+	data->camera->posY += 0.5;
+	if (data->scene->orientation == 'N')
+	{
+		data->camera->dirX = 0;
+		data->camera->dirY = -1.0;
+		data->camera->planeX = -1.0;
+		data->camera->planeY = 0;
+	}
+	else if (data->scene->orientation == 'S')
+	{
+		data->camera->dirX = 0;
+		data->camera->dirY = 1.0;
+		data->camera->planeX = 1.0;
+		data->camera->planeY = 0;
+	}
+	else if (data->scene->orientation == 'W')
+	{
+		data->camera->dirX = -1.0;
+		data->camera->dirY = 0;
+		data->camera->planeX = 0;
+		data->camera->planeY = 1.0;
+	}
+	else if (data->scene->orientation == 'E')
+	{
+		data->camera->dirX = 1.0;
+		data->camera->dirY = 0;
+		data->camera->planeX = 0;
+		data->camera->planeY = -1.0;
+	}
+	data->mov_flags = ft_calloc(1, sizeof(*(data->mov_flags)));
+
+	ft_prepare_images(data);
+	data->mov_flags->walk_speed = 0.2;
+	data->mov_flags->rotation_speed = 0.1;
+	ft_test(data);
+	ft_handle_keyboard(data);
+
+
+	mlx_loop_hook(data->mlx->ptr, ft_test, data);
+	mlx_loop(data->mlx->ptr);
 }

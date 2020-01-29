@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 22:11:56 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/19 22:45:05 by cdai             ###   ########.fr       */
+/*   Updated: 2020/01/19 22:54:49 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_free_splited(char **splited_data)
 			i++;
 		}
 		free(splited_data);
-	}	
+	}
 	splited_data = NULL;
 }
 
