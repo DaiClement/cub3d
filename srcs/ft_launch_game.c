@@ -6,17 +6,52 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 10:56:01 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/29 18:37:34 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/07 15:49:58 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static void	ft_init_orientation(t_game_data *data)
+{
+	if (data->scene->orientation == 'N')
+	{
+//		data->camera->dir_x = 0;
+//		data->camera->dir_y = -1.0;
+//		data->camera->plane_x = -1.0;
+//		data->camera->plane_y = 0;
+		data->camera->angle = M_PI / 2;
+	}
+	else if (data->scene->orientation == 'S')
+	{
+//		data->camera->dir_x = 0;
+//		data->camera->dir_y = 1.0;
+//		data->camera->plane_x = 1.0;
+//		data->camera->plane_y = 0;
+		data->camera->angle = M_PI * 1.5;
+	}
+	else if (data->scene->orientation == 'W')
+	{
+//		data->camera->dir_x = -1.0;
+//		data->camera->dir_y = 0;
+//		data->camera->plane_x = 0;
+//		data->camera->plane_y = 1.0;
+		data->camera->angle = M_PI;
+	}
+	else if (data->scene->orientation == 'E')
+	{
+//		data->camera->dir_x = 1.0;
+//		data->camera->dir_y = 0;
+//		data->camera->plane_x = 0;
+//		data->camera->plane_y = -1.0;
+		data->camera->angle = 0;
+	}
+	data->mov_flags = ft_calloc(1, sizeof(*(data->mov_flags)));
+}
+
 void		ft_launch_game(const char *filename)
 {
 	t_game_data *data;	
-	//t_scene	*scene;
-	//void	*image;
 
 	data = ft_calloc(1, sizeof(*data));
 	if (!(data->scene = ft_parse_cub(data, filename)))
@@ -48,45 +83,18 @@ printf("Orientation : %c\n", data->scene->orientation);
 	data->image = mlx_new_image(data->mlx->ptr, data->scene->resolution[0], data->scene->resolution[1]);
 
 
-	data->camera->posX += 0.5;
-	data->camera->posY += 0.5;
-	if (data->scene->orientation == 'N')
-	{
-		data->camera->dirX = 0;
-		data->camera->dirY = -1.0;
-		data->camera->planeX = -1.0;
-		data->camera->planeY = 0;
-	}
-	else if (data->scene->orientation == 'S')
-	{
-		data->camera->dirX = 0;
-		data->camera->dirY = 1.0;
-		data->camera->planeX = 1.0;
-		data->camera->planeY = 0;
-	}
-	else if (data->scene->orientation == 'W')
-	{
-		data->camera->dirX = -1.0;
-		data->camera->dirY = 0;
-		data->camera->planeX = 0;
-		data->camera->planeY = 1.0;
-	}
-	else if (data->scene->orientation == 'E')
-	{
-		data->camera->dirX = 1.0;
-		data->camera->dirY = 0;
-		data->camera->planeX = 0;
-		data->camera->planeY = -1.0;
-	}
-	data->mov_flags = ft_calloc(1, sizeof(*(data->mov_flags)));
+	data->camera->pos_x += 0.5;
+	data->camera->pos_y += 0.5;
+	ft_init_orientation(data);
 
 	ft_prepare_images(data);
-	data->mov_flags->walk_speed = 0.2;
-	data->mov_flags->rotation_speed = 0.1;
+	data->mov_flags->walk_speed = 0.31;
+	data->mov_flags->rotation_speed = 0.2;
 	ft_test(data);
-	ft_handle_keyboard(data);
+//	ft_handle_image(data);
+	ft_test(data);
+//	ft_handle_keyboard(data);
 
-
-	mlx_loop_hook(data->mlx->ptr, ft_test, data);
+//	mlx_loop_hook(data->mlx->ptr, ft_handle_image, data);
 	mlx_loop(data->mlx->ptr);
 }

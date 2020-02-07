@@ -1,15 +1,15 @@
 R 1920 1080
-NO ./textures/mossy.xpm
+NO ./textures/bluestone.xpm
 SO ./textures/redbrick.xpm
-WE ./textures/wood.xpm
-EA ./textures/lmarques.xpm
+WE ./textures/colorstone.xpm
+EA ./textures/greystone.xpm
 S ./textures/pillar.xpm
-F 220,100,0
+F 0,100,255
 C 225,30,0
 
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-1 0 1 1 0 0 0 0 0 1 1 1 0 0 0 0 0 0 2 0 0 W 0 0 1 0 0 0 1
+1 N 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
+1 0 1 1 0 0 0 0 0 1 1 1 0 0 0 0 0 0 2 0 0 0 0 0 1 0 0 0 1
 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1
 1 0 1 1 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 1 1 1 0 1 1 1 1 0 0 0 1

@@ -5,295 +5,175 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/21 13:02:58 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/29 18:49:48 by cdai             ###   ########.fr       */
+/*   Created: 2020/02/06 12:13:12 by cdai              #+#    #+#             */
+/*   Updated: 2020/02/07 16:45:51 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 void ft_put_pixel(char *img_data, int color[4], int pos)
 {
-	int	k;
+    int k;
 
-	k = 0;
-	while (k < 4)
-	{
-		img_data[pos - k] = color[k];
-		k++;
-	}
+    k = 0;
+    while (k < 4)
+    {
+        img_data[pos - k] = color[k];
+        k++;
+    }
 }
 
-int	ft_test(t_game_data *data)
+int ft_test(t_game_data *data)
 {
-	int	is_sprite = 0;
-	// taille de la projection
-	double w = data->scene->resolution[0];
-	double h = data->scene->resolution[1];
-	double x = 0;
-	double y = 0;
-	// variables de stockage
-	double oldDirX = 0;
-	double oldPlaneX = 0;
-	// avancer
-	if (data->mov_flags->forward)
+	// pos_x et pos_y sont les positions de la camera/joueur
+	double pos_x = data->camera->pos_x;
+	double pos_y = data->camera->pos_y;
+	// angle est l'angle du regard du centre de l'ecran
+	double angle = data->camera->angle;
+	printf("angle :%f\n",angle);
+
+	//x et y sont des compteurs
+	int x = 0;
+	int y = 0;
+
+	// on cherche le modulo de 2 * M_PI;
+	angle = ft_modulo_two_pi(angle);
+	// plane_dist est la distance entre le joueur et le centre du plan camera
+	double plane_dist = (data->scene->resolution[0] / 2) / tan(M_PI / 6);
+
+	// screen->width = data->scene->resolution[0]
+	// screen->height = data->scene->resolution[1]
+	double step_angle = (M_PI / 3) / data->scene->resolution[0];
+	printf("step_angle :%f\n", step_angle);
+
+	// ray_angle est l'angle du rayon en cours par rapport au centre de la camera
+	double ray_angle = M_PI / 6 + step_angle;
+
+	// norm_ray_angle est l'angle par rapport a angle 0
+	double norm_ray_angle = angle + ray_angle;
+
+	// valeur de deplacement
+	int step_x = 0;
+	int step_y = 0;
+
+	// rayX et rayY sont les distances PRECISES du rayon dans la map en 2D depuis la camera
+	double dist_ray_x = 0;
+	double dist_ray_y = 0;
+
+	// delta_ray_x et delta_ray_y sont les distances entre 2 cases avant de toucher une paroi d'une case
+	double delta_ray_x = 0;
+	double delta_ray_y = 0;
+
+	// side pour savoir l'orientation N/S ou W/E
+	int side = 0;
+
+	// distance de l'hypothenuse
+	double dist_hypo = 0;
+
+	// on balaye l'ecran de gauche a droite
+	while (x < data->scene->resolution[0])
 	{
-		// si la prochaine case sur X est libre
-		if (data->scene->map[(int)(data->camera->posY)][(int)(data->camera->posX + data->camera->dirX * data->mov_flags->walk_speed)] == '0')
-			data->camera->posX += data->camera->dirX * data->mov_flags->walk_speed;// on avance sur X
-		// si la prochaine case sur Y est libre
-		if (data->scene->map[(int)(data->camera->posY + data->camera->dirY * data->mov_flags->walk_speed)][(int)(data->camera->posX)] == '0')
-			data->camera->posY += data->camera->dirY * data->mov_flags->walk_speed;// on avance sur Y
-	}
-	// reculer
-	if (data->mov_flags->backward)
-	{
-		if (data->scene->map[(int)(data->camera->posY)][(int)(data->camera->posX - data->camera->dirX * data->mov_flags->walk_speed)] == '0')
-			data->camera->posX -= data->camera->dirX * data->mov_flags->walk_speed;// on recule sur X
-		if (data->scene->map[(int)(data->camera->posY - data->camera->dirY * data->mov_flags->walk_speed)][(int)(data->camera->posX)] == '0')
-			data->camera->posY -= data->camera->dirY * data->mov_flags->walk_speed;// on recule sur Y
-	}
-	// tourner a gauche
-	if (data->mov_flags->turn_left)
-	{
-		oldDirX = data->camera->dirX;
-		data->camera->dirX = data->camera->dirX * cos(-data->mov_flags->rotation_speed) - data->camera->dirY * sin(-data->mov_flags->rotation_speed);
-		data->camera->dirY = oldDirX * sin(-data->mov_flags->rotation_speed) + data->camera->dirY * cos(-data->mov_flags->rotation_speed);
-		printf("dirX :%f, dirY :%f\n", data->camera->dirX, data->camera->dirY);
-		oldPlaneX = data->camera->planeX;
-		data->camera->planeX = data->camera->planeX * cos(-data->mov_flags->rotation_speed) - data->camera->planeY * sin(-data->mov_flags->rotation_speed);
-		data->camera->planeY = oldPlaneX * sin(-data->mov_flags->rotation_speed) + data->camera->planeY * cos(-data->mov_flags->rotation_speed);
-		printf("plane :%f, planeY :%f\n", data->camera->planeX, data->camera->planeY);
-	}
-	// tourner a droite 
-	if (data->mov_flags->turn_right)
-	{
-		oldDirX = data->camera->dirX;
-		data->camera->dirX = data->camera->dirX * cos(data->mov_flags->rotation_speed) - data->camera->dirY * sin(data->mov_flags->rotation_speed);
-		data->camera->dirY = oldDirX * sin(data->mov_flags->rotation_speed) + data->camera->dirY * cos(data->mov_flags->rotation_speed);
-		printf("dirX :%f, dirY :%f\n", data->camera->dirX, data->camera->dirY);
-		oldPlaneX = data->camera->planeX;
-		data->camera->planeX = data->camera->planeX * cos(data->mov_flags->rotation_speed) - data->camera->planeY * sin(data->mov_flags->rotation_speed);
-		data->camera->planeY = oldPlaneX * sin(data->mov_flags->rotation_speed) + data->camera->planeY * cos(data->mov_flags->rotation_speed);
-		printf("plane :%f, planeY :%f\n", data->camera->planeX, data->camera->planeY);
-	}
-	// Latéral gauche
-	if (data->mov_flags->mov_left)
-	{
-		// si le prochain tile sur X est libre on avance sur X
-		if (data->scene->map[(int)(data->camera->posY)][(int)(data->camera->posX + data->camera->planeX  * data->mov_flags->walk_speed)] == '0')
-			data->camera->posX += data->camera->planeX * data->mov_flags->walk_speed;
-		// si le prochain tile sur Y est libre on avance sur Y
-		if (data->scene->map[(int)(data->camera->posY + data->camera->planeY * data->mov_flags->walk_speed)][(int)(data->camera->posX)] == '0')
-			data->camera->posY += data->camera->planeY * data->mov_flags->walk_speed;
-	}
-	// Latéral droite
-	if (data->mov_flags->mov_right)
-	{
-		// si le prochain tile sur X est libre on recule sur X
-		if (data->scene->map[(int)(data->camera->posY)][(int)(data->camera->posX - data->camera->planeX  * data->mov_flags->walk_speed)] == '0')
-			data->camera->posX -= data->camera->planeX * data->mov_flags->walk_speed;
-		// si le prochain tile sur Y est libre on recule sur Y
-		if (data->scene->map[(int)(data->camera->posY - data->camera->planeY * data->mov_flags->walk_speed)][(int)(data->camera->posX)] == '0')
-			data->camera->posY -= data->camera->planeY * data->mov_flags->walk_speed;
-	}
-	int data_len = data->scene->resolution[0] * data->scene->resolution[1] * 4 - 1;
-	int color[4];
-	while (x < w)
-	{
-		//Position de départ et data->camera->direction du rayon
-		double cameraX = (2*x/w)-1;// position de la colonne par rapport au centre de l’écran
-		double rayPosX = data->camera->posX;// position de départ du rayon sur X
-		double rayPosY = data->camera->posY;// position de départ du rayon sur Y
-		double rayDirX = data->camera->dirX + data->camera->planeX * cameraX;// data->camera->direction du rayon sur X
-		double rayDirY = data->camera->dirY+data->camera->planeY*cameraX;// data->camera->direction du rayon sur Y
-		// sur quelle case est la caméra
-		int mapX = (int)(rayPosX);
-		int mapY = (int)(rayPosY);
-		// longueur du rayon
-		double sideDistX = 0;
-		double sideDistY = 0;
-		// longueur du rayon entre chaque intersection
-		double deltaDistX = sqrt(1+(rayDirY*rayDirY)/(rayDirX*rayDirX));
-		double deltaDistY = sqrt(1+(rayDirX*rayDirX)/(rayDirY*rayDirY));
-		// data->camera->direction du vecteur sur X et Y (+1 ou -1)
-		int stepX = 0;
-		int stepY = 0;
-		double hit = 0;//le rayon touche un mur ou pas
-		double side = 0;//quelle orientation à le mur (nord/sud ou est/ouest) dans la map 
-		double test = 0;
-		double perpWallDist = 0;// distance corrigée du rayon
-		//calcule le vecteur de data->camera->direction et la longueur entre deux segments
-		if (rayDirX<0)
+		// on trouve le rayon en cours. Je decremente 
+		ray_angle -= step_angle;
+		norm_ray_angle = angle + ray_angle;
+		ray_angle = fabs(ray_angle);
+		norm_ray_angle = ft_modulo_two_pi(norm_ray_angle);
+		// on cherche dans quelle direction on va avec les rayons
+		// calcul du 'pas'
+		if (norm_ray_angle >= M_PI / 2 && norm_ray_angle < M_PI * 1.5)
 		{
-			stepX=-1;// vecteur de data->camera->direction
-			sideDistX = (rayPosX - mapX) * deltaDistX;// distance
+			step_x = -1;
+			delta_ray_x = fabs(tan(ray_angle) * 1);
 		}
 		else
 		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - rayPosX) * deltaDistX;
+			step_x = 1;
+			delta_ray_x = fabs(1 / tan(ray_angle));
 		}
-		if (rayDirY < 0)
+		if (norm_ray_angle >= 0 && norm_ray_angle < M_PI)
 		{
-			stepY = -1;
-			sideDistY = (rayPosY - mapY) * deltaDistY;
+			step_y = -1;
+			delta_ray_y = fabs(1 / tan(ray_angle));
 		}
 		else
 		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - rayPosY) * deltaDistY;
+			step_y = 1;
+			delta_ray_y = fabs(tan(ray_angle) * 1);
 		}
-		// tant que le rayon ne rencontre pas de mur
-		while (hit == 0)
+		// pos_ray_x et pos_ray_y sont les positions du rayon dans la map en 2D. On demarre la ou est la camera
+		int pos_ray_x = (int)pos_x;
+		int pos_ray_y = (int)pos_y;
+
+		// distance avec la premiere limite d'une casse 
+		dist_ray_x = fabs(tan(ray_angle) * (pos_x - pos_ray_x));
+		dist_ray_y = fabs((pos_y - pos_ray_y) / tan(ray_angle));
+
+
+		//hit est juste un booleen si le rayon touche un mur ('1')
+		int hit = 0;
+		while (!hit)
 		{
-//			printf("sideDistX :%f, sideDistY :%f\n", sideDistX, sideDistY);
-			//Passe à la case suivante sur X ou Y
-			if (sideDistX<sideDistY)// && data->camera->dirX <= 0.0) // && data->camera->planeX < 0)
+			if (dist_ray_x < dist_ray_y)
 			{
-				sideDistX += deltaDistX;// agrandis le rayon
-				mapX += stepX;// prochaine case ou case précédente sur X
-				side = 0;// orientation du mur
-				test = 0;
-			}
-			//Passe à la case suivante sur X ou Y
-//			else if (sideDistX<sideDistY && data->camera->dirX > 0.0)
-//			{
-//				sideDistX += deltaDistX;// agrandis le rayon
-//				mapX += stepX;// prochaine case ou case précédente sur X
-//				side = 0;// orientation du mur
-//				test = 0;
-//			}
-			else
-			{
-				if (data->camera->dirY <= 0.0 && data->camera->planeX <= 0.0)
-				{
-				sideDistY += deltaDistY;// agrandis le rayon
-				mapY += stepY;// prochaine case ou case précédente sur Y
-				side = 1;// orientation du mur
-				test = 1;
-				}
-				else// if (data->camera->dirY <= 0.0 && data->camera->planeX <= 0.0)
-				{
-				sideDistY += deltaDistY;// agrandis le rayon
-				mapY += stepY;// prochaine case ou case précédente sur Y
-				side = 1;// orientation du mur
-				test = 0;
-				}
-			}
-			// si le rayon rencontre un mur
-//			if (data->scene->map[mapY][mapX] == '2')
-//			{
-//				hit=1;// stoppe la boucle
-//				is_sprite = 1;
-//			}
-			if (data->scene->map[mapY][mapX] == '1')
-			{
-				hit=1;// stoppe la boucle 
-				is_sprite = 0;
-			}
-		}
-		// Calcule la distance corrigée pour la projection
-		if (side == 0)
-			perpWallDist = fabs((mapX-rayPosX+(1-stepX)/2)/rayDirX);
-		else
-			perpWallDist = fabs((mapY-rayPosY+(1-stepY)/2)/rayDirY);
-		//Calcule la hauteur de la ligne à tracer
-		double hauteurLigne = fabs(h / perpWallDist);
-		//Calcule les pixels max haut et max bas de la colonne à tracer
-		double drawStart = (int)(-hauteurLigne/2+h/2);
-		double drawEnd = (int)(hauteurLigne/2+h/2);
-		// limite les zones de tracé à l'écran uniquement
-		if (drawStart < 0)
-			drawStart = 0;
-		if (drawEnd >= h)
-			drawEnd = h-1;
-		int pos = 0;
-		// tracer la colonne
-		y=drawStart;
-		//trace le sol de la fin du mur au bas de l'écran
-		y=drawEnd;
-		while (y < h)
-		{
-			pos =   
-				(int)y * data->image->size_line +
-				(int)x * data->image->bits_per_pixel / 8;
-			pos = data_len - pos;
-			ft_put_pixel(data->image->img_data, data->scene->floor, pos);
-			pos =   
-				(int)(h-y-1) * data->image->size_line +
-				(int)x * data->image->bits_per_pixel / 8;
-			pos = data_len - pos;
-			ft_put_pixel(data->image->img_data, data->scene->ceilling, pos);
-			y++;
-		}
-		// référence de la texture (-1 pour utiliser le 0 du tableau de textures)
-		char texNum = data->scene->map[mapY][mapX]-1;// trouve le chiffre de la case
-		double wallX = 0;// la colonne exacte touchée transposée sur X
-		//  si le mur est orienté est/ouest (sur Y)
-		if (side==1)
-			wallX=rayPosX+((mapY-rayPosY+(1-stepY)/2)/rayDirY)*rayDirX;
-		else
-			wallX=rayPosY+((mapX-rayPosX+(1-stepX)/2)/rayDirX)*rayDirY;
-		wallX -= floor(wallX);// arrondis à l’inférieur 
-		// coordonnée x de la colonne dans la texture
-		double texX = (wallX * data->sprite[0].width);
-		if (side == 0 && rayDirX > 0)
-			texX = data->sprite[0].width - texX - 1;
-		if (side == 1 && rayDirY < 0)
-			texX = data->sprite[0].width - texX - 1;
-		// trace la colonne
-		y=drawStart;
-		while (y<drawEnd)
-		{
-			double texY = (y * 2 - h + hauteurLigne) * (data->sprite[0].height/2)/hauteurLigne;// coordonnée Y du texel 
-			int i = 0;
-			int temp = 0; //(int)(texY) * data->sprite[0].size_line + (int)(texX) * 4;
-//			if (is_sprite)
-//			{
-//				while (i < 4)
-//				{
-//					color[i] = data->sprite[4].img_data[temp + 3 - i];// couleur du texel
-//					i++;
-//				}
-//			}
-			if (test && side)
-			{
-				temp = (int)(texY) * data->sprite[1].size_line + (int)(texX) * 4;
-				while (i < 4)
-				{
-					color[i] = data->sprite[1].img_data[temp + 3 - i];// couleur du texel
-					i++;
-				}
-			}
-			else if (!test && side)
-//			if (side)
-			{
-				temp = (int)(texY) * data->sprite[2].size_line + (int)(texX) * 4;
-				while (i < 4)
-				{
-					color[i] = data->sprite[2].img_data[temp + 3 - i];// couleur du texel
-					i++;
-				}
+				dist_ray_x += delta_ray_x;
+				pos_ray_x += step_y;
+				side = 1;
 			}
 			else
 			{
-				temp = (int)(texY) * data->sprite[0].size_line + (int)(texX) * 4;
-				while (i < 4)
-				{
-					color[i] = data->sprite[0].img_data[temp + 3 - i];// couleur du texel
-					i++;
-				}
+				dist_ray_y += delta_ray_x;
+				pos_ray_y += step_x;
+				side = 0;
 			}
-			pos =   
-				(int)y * data->image->size_line +
-				(int)x * data->image->bits_per_pixel / 8;
-			pos = data_len - pos;
-			ft_put_pixel(data->image->img_data, color, pos);
-			y++;
+			if (data->scene->map[pos_ray_y][pos_ray_x] == '1')
+				hit = 1;
 		}
+		// pos servira pour l'emplacement du pixel
+		int pos;
+		
+		// on verifie si c'est un mur N/S ou un mur W/E
+		if (side)
+			dist_hypo = (dist_ray_x - delta_ray_x * ((1 - step_x) / 2) / sin(ray_angle));
+		else
+			dist_hypo = (dist_ray_y - delta_ray_y * ((1 - step_y) / 2) / cos(ray_angle));
+
+		// start est le depart du mur par rapport au sol
+		// on fera le miroir pour le plafond
+		double start = (data->scene->resolution[1] / 2) + (32 / dist_hypo);// 32 = hauteur du mur
+		if (start >= data->scene->resolution[1])
+			start = data->scene->resolution[1] - 1;
+
+		y = start;
+		// ici on balaye l'ecran de haut en bas depuis le centre pour le sol et de bas en haut pour le plafond
+        while (y < data->scene->resolution[1])
+        {
+            pos =
+                4 *
+                data->scene->resolution[0] *
+                data->scene->resolution[1] -
+                1 -
+                (int)y * data->image->size_line -
+                (int)x * data->image->bits_per_pixel / 8;
+            ft_put_pixel(data->image->img_data, data->scene->floor, pos);
+            pos =
+                4 *
+                data->scene->resolution[0] *
+                data->scene->resolution[1] -
+                1 -
+                (int)(data->scene->resolution[1]-y-1) * data->image->size_line -
+                (int)x * data->image->bits_per_pixel / 8;
+            ft_put_pixel(data->image->img_data, data->scene->ceilling, pos);
+            y++;
+        }
 		x++;
+		printf("delta_ray_x :%f, delta_ray_y :%f\n", delta_ray_x, delta_ray_y);
+		printf("pos_ray_x :%d, pos_ray_y :%d\n", pos_ray_x, pos_ray_y);
+//		printf("pos_x :%f, pos_y :%f\n", pos_x, pos_y);
+//		printf("step_x :%d, step_y :%d\n", step_x, step_y);
+		printf("dist_ray: %f, %f\n", dist_ray_x, dist_ray_y);
+		printf("%f\n", ray_angle);
+	    mlx_put_image_to_window(data->mlx->ptr, data->mlx->win, data->image->image, 0, 0);
 	}
-	mlx_put_image_to_window(data->mlx->ptr, data->mlx->win, data->image->image, 0, 0);
-	return (0);
+	printf("step_x :%d, step_y :%d\n", step_x, step_y);
+	return 0;
 }

@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dtoi.c                                          :+:      :+:    :+:   */
+/*   ft_modulo_two_pi.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/28 16:48:33 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/03 17:38:32 by cdai             ###   ########.fr       */
+/*   Created: 2020/02/06 12:42:38 by cdai              #+#    #+#             */
+/*   Updated: 2020/02/07 10:16:40 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-int ft_dtoi(double nb)
+double	ft_modulo_two_pi(double nb)
 {
-	int i = 0;
-
+	const double	circle = 2 * M_PI;
 	if (nb < 0)
-	{
-		while (-1 >= nb)
-		{
-			i--;
-			nb++;
-		}
-	}
+		while (nb < 0)
+			nb += circle;
 	else
-	{
-		while (1 <= nb)
-		{
-			nb--;
-			i++;
-		}
-	}
-	return i;
+		while (nb >= circle)
+			nb -= circle;
+	return (nb);
 }

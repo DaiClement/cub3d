@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 15:07:55 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/27 14:45:39 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/03 18:14:31 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ static int	ft_check_map(char *other_line, int line_length,
 			//other_line[i] = '0';
 			mapstatus->orientation = other_line[i];
 			data->camera = ft_calloc(1, sizeof(*(data->camera)));
-			data->camera->posX = i;
-			data->camera->posY = j;
+			data->camera->pos_x = i;
+			data->camera->pos_y = j;
 			data->camera->start_angle = other_line[i];
-			data->camera->dirX = -1;
-			data->camera->dirY = 0;
-			data->camera->planeX = 0;
-			data->camera->planeY = 1;
+			data->camera->dir_x = -1;
+			data->camera->dir_y = 0;
+			data->camera->plane_x = 0;
+			data->camera->plane_y = 1;
 			other_line[i] = '0';
 		}
 		else if (!ft_charchr("012", other_line[i]))

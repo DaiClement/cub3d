@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2020/01/28 17:57:09 by cdai             ###   ########.fr        #
+#    Updated: 2020/02/06 14:58:45 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,9 +85,13 @@ SRCS		=	\
 				srcs/ft_fullfill_map.c\
 				srcs/ft_check_n_parse_map.c\
 				srcs/ft_put_map_to_image.c\
-				srcs/ft_test.c\
+				srcs/ft_handle_image.c\
 				srcs/ft_handle_keyboard.c\
 				srcs/ft_prepare_images.c\
+				srcs/ft_handle_mouvement.c\
+				srcs/ft_handle_mouvement_utils.c\
+				srcs/ft_modulo_two_pi.c\
+				srcs/ft_test.c\
 
 OBJS		=	${SRCS:.c=.o}
 

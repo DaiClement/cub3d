@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 17:26:44 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/28 18:06:11 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/06 14:50:55 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,26 @@ typedef struct	s_camera
 {
 	char	start_angle;
 	double	angle;
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 }				t_camera;
+
+typedef struct	s_calcul
+{
+	int width;
+	int height;
+}				t_calcul;
+
+typedef struct	s_sprite
+{
+	double	x;
+	double	y;
+	char	*texture;
+}				t_sprite;
 
 typedef struct	s_mlx
 {
@@ -82,6 +95,7 @@ typedef struct	s_game_data
 	t_image		*image;
 	t_image		sprite[5];
 	t_mov_flags	*mov_flags;
+	t_calcul	*calcul;
 }				t_game_data;
 
 #endif
