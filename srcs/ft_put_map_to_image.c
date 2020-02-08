@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 18:38:31 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/23 17:03:06 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/07 19:45:13 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_put_map_to_image(t_scene *scene, void *win_ptr, void *image)
 	char	*img_data;
 	int		i;
 	int 	j;
-	int case_size = 5;
+	int case_size = 64;
     int background_color[4] = {255, 255, 255, 0};
     int ceilling_color[4] = {255, 0, 0, 0};
     int floor_color[4] = {127, 127, 255, 195};

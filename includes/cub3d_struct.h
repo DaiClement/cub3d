@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 17:26:44 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/06 14:50:55 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/08 18:47:06 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,23 @@ typedef struct	s_calcul
 
 typedef struct	s_sprite
 {
+	char	color[4];
 	double	x;
 	double	y;
-	char	*texture;
+	double	spriteX;
+	double	spriteY;
+	double	invDet;
+	double	transformX;
+	double	transformY;
+	int		spriteScreenX;
+	int		spriteHeight;
+	int		drawStartY;
+	int		drawEndY;
+	int		spriteWidth;
+	int		drawStartX;
+	int		drawEndX;
+	int		texX;
+	int		texY;
 }				t_sprite;
 
 typedef struct	s_mlx

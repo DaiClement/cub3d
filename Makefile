@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2020/02/06 14:58:45 by cdai             ###   ########.fr        #
+#    Updated: 2020/02/08 19:24:02 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,6 @@ SRCS		=	\
 				srcs/ft_handle_mouvement.c\
 				srcs/ft_handle_mouvement_utils.c\
 				srcs/ft_modulo_two_pi.c\
-				srcs/ft_test.c\
 
 OBJS		=	${SRCS:.c=.o}
 
@@ -138,7 +137,7 @@ fclean:
 
 re:				fclean all
 
-test:
+test:			all
 				./${NAME} scene_description/subject.cub
 
 norm:

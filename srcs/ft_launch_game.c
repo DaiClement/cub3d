@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 10:56:01 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/07 15:49:58 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/08 18:57:11 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,35 @@ static void	ft_init_orientation(t_game_data *data)
 {
 	if (data->scene->orientation == 'N')
 	{
-//		data->camera->dir_x = 0;
-//		data->camera->dir_y = -1.0;
-//		data->camera->plane_x = -1.0;
-//		data->camera->plane_y = 0;
-		data->camera->angle = M_PI / 2;
+		data->camera->dir_x = 0;
+		data->camera->dir_y = -1.0;
+		data->camera->plane_x = -1.0;
+		data->camera->plane_y = 0;
+//		data->camera->angle = M_PI / 2;
 	}
 	else if (data->scene->orientation == 'S')
 	{
-//		data->camera->dir_x = 0;
-//		data->camera->dir_y = 1.0;
-//		data->camera->plane_x = 1.0;
-//		data->camera->plane_y = 0;
-		data->camera->angle = M_PI * 1.5;
+		data->camera->dir_x = 0;
+		data->camera->dir_y = 1.0;
+		data->camera->plane_x = 1.0;
+		data->camera->plane_y = 0;
+//		data->camera->angle = M_PI * 1.5;
 	}
 	else if (data->scene->orientation == 'W')
 	{
-//		data->camera->dir_x = -1.0;
-//		data->camera->dir_y = 0;
-//		data->camera->plane_x = 0;
-//		data->camera->plane_y = 1.0;
-		data->camera->angle = M_PI;
+		data->camera->dir_x = -1.0;
+		data->camera->dir_y = 0;
+		data->camera->plane_x = 0;
+		data->camera->plane_y = 1.0;
+//		data->camera->angle = M_PI;
 	}
 	else if (data->scene->orientation == 'E')
 	{
-//		data->camera->dir_x = 1.0;
-//		data->camera->dir_y = 0;
-//		data->camera->plane_x = 0;
-//		data->camera->plane_y = -1.0;
-		data->camera->angle = 0;
+		data->camera->dir_x = 1.0;
+		data->camera->dir_y = 0;
+		data->camera->plane_x = 0;
+		data->camera->plane_y = -1.0;
+//		data->camera->angle = 0;
 	}
 	data->mov_flags = ft_calloc(1, sizeof(*(data->mov_flags)));
 }
@@ -90,11 +90,16 @@ printf("Orientation : %c\n", data->scene->orientation);
 	ft_prepare_images(data);
 	data->mov_flags->walk_speed = 0.31;
 	data->mov_flags->rotation_speed = 0.2;
-	ft_test(data);
-//	ft_handle_image(data);
-	ft_test(data);
-//	ft_handle_keyboard(data);
 
-//	mlx_loop_hook(data->mlx->ptr, ft_handle_image, data);
+//	ft_put_map_to_image(data->scene, data->mlx->win, data->image->image);
+//	mlx_put_image_to_window(data->mlx->ptr, data->mlx->win, data->image->image, 0, 0);
+
+//	data->image = mlx_new_image(data->mlx->ptr, data->scene->resolution[0], data->scene->resolution[1]);
+//	ft_test(data);
+//	ft_test2(data);
+	ft_handle_image(data);
+	ft_handle_keyboard(data);
+
+	mlx_loop_hook(data->mlx->ptr, ft_handle_image, data);
 	mlx_loop(data->mlx->ptr);
 }
