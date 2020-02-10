@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 22:04:37 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/08 18:02:57 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/10 17:14:44 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ int	ft_fullfill_ceilling(t_scene **scene, char **splited_data, t_scene **status)
 	while (splited_data[1][j])
 	{
 		if (ft_isdigit(splited_data[1][j]) && nb_comma < 3 &&
-			ft_check_atoi_max_min(splited_data[1] + j))
-			(*scene)->ceilling[nb_comma + 1] = ft_atoi(splited_data[1] + j);
+			ft_check_atoi_max_min(splited_data[1] + j) && 
+			ft_isinrange(ft_atoi(splited_data[1] + j), 0, 255))
+			(*scene)->ceilling[2 - nb_comma] = ft_atoi(splited_data[1] + j);
 		else
-			return (-1);
-		if (!(ft_isinrange((*scene)->ceilling[nb_comma], 0, 255)))
 			return (-1);
 		while (ft_isdigit(splited_data[1][j]))
 			j++;

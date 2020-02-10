@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 10:15:58 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/24 13:42:54 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/10 16:50:58 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ printf("South textures path: %s\n", status->sprite[1]);
 printf("West textures path: %s\n", status->sprite[2]);
 printf("East textures path: %s\n", status->sprite[3]);
 printf("Sprite textures path: %s\n", status->sprite[4]);
-printf("Floor color RGBA: %d,%d,%d,%d\n", status->floor[0], status->floor[1], status->floor[2], status->floor[3]);
-printf("Ceilling color RGBA: %d,%d,%d,%d\n", status->ceilling[0], status->ceilling[1], status->ceilling[2], status->    ceilling[3]);
+printf("Floor color ABGR: %d,%d,%d,%d\n", status->floor[0], status->floor[1], status->floor[2], status->floor[3]);
+printf("Ceilling color ABGR: %d,%d,%d,%d\n", status->ceilling[0], status->ceilling[1], status->ceilling[2], status->    ceilling[3]);
 printf("Map : %s\n", *status->map);
 printf("Orientation : %c\n", status->orientation);
 	ft_free_all(NULL, &status, &line, NULL);

@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isinrange.c                                     :+:      :+:    :+:   */
+/*   ft_put_pixel.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/14 10:08:11 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/10 17:00:55 by cdai             ###   ########.fr       */
+/*   Created: 2020/02/10 12:15:56 by cdai              #+#    #+#             */
+/*   Updated: 2020/02/10 12:17:15 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_isinrange(int tocheck, int min, int max)
+void ft_put_pixel(char *img_data, char *color, int pos)
 {
-	if (tocheck < min || tocheck > max)
-		return (0);
-	return (1);
+    int k;
+
+    k = 0;
+    while (k < 4)
+    {
+        img_data[pos - k] = color[3 - k];
+        k++;
+    }
 }
