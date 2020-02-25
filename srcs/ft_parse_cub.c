@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 12:09:44 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/25 15:26:14 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/25 15:28:26 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ int			ft_parse_cub(t_scene *scene, char *filename)
 		return (ft_print_error("No map or not enough argument"));
 	if (!ft_check_n_parse_map(&scene->map))
 		return (0);
+temp_print_data(*scene);
 	return (1);
 }

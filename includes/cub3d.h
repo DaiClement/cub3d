@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 11:03:38 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/25 15:26:13 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/25 15:28:23 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "cub3d_struct.h"
 
 int		ft_launch_game(char *filename);
+void	temp_print_data(t_scene scene);
 int		ft_parse_cub(t_scene *scene, char *filename);
 int		ft_check_file_extention(char *filename, char *extention);
 void	ft_free_gnl_value(char **line, char **splited_data);
