@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_modulo_two_pi.c                                 :+:      :+:    :+:   */
+/*   ft_str_isdigit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/06 12:42:38 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/07 10:16:40 by cdai             ###   ########.fr       */
+/*   Created: 2020/02/14 15:19:00 by cdai              #+#    #+#             */
+/*   Updated: 2020/02/14 15:42:09 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double	ft_modulo_two_pi(double nb)
+int	ft_str_isdigit(char *str)
 {
-	const double	circle = 2 * M_PI;
-	if (nb < 0)
-		while (nb < 0)
-			nb += circle;
-	else
-		while (nb >= circle)
-			nb -= circle;
-	return (nb);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

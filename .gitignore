@@ -2,10 +2,12 @@ cub3D
 *.o
 */*.o
 */*.a
-DS*
+.DS*
 */*DS*
 *.swp
 */*.swp
 textures
 note
-test.txt
+test*
+*.bmp
+srcs/temp*

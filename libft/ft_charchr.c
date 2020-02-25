@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 17:24:28 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/19 17:27:05 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/18 18:21:58 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_charchr(char *haystack, char needle)
 	i = 0;
 	while (haystack[i])
 	{
-		if (haystack[i]  == needle)
+		if (haystack[i] == needle)
 			return (1);
 		i++;
 	}

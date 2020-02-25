@@ -6,7 +6,7 @@
 #    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2020/01/28 16:59:59 by cdai             ###   ########.fr        #
+#    Updated: 2020/02/19 11:02:10 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,6 @@ SRCS	=	\
 			get_next_line.c\
 			get_next_line_utils.c\
 			ft_charchr.c\
-			ft_dtoi.c\
 
 OBJS	=	${SRCS:.c=.o}
 

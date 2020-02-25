@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/14 10:27:28 by cdai              #+#    #+#             */
-/*   Updated: 2020/01/17 12:38:49 by cdai             ###   ########.fr       */
+/*   Created: 2020/02/14 15:15:55 by cdai              #+#    #+#             */
+/*   Updated: 2020/02/17 11:06:03 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,24 @@
 
 int	ft_check_atoi_max_min(char *nb)
 {
-	int i;
-	int negative;
+	int	i;
+	int	negative;
+	int	nb_zero;
 
 	i = 0;
 	negative = 0;
-	if (nb[i] == '-')
+	nb_zero = 0;
+	if (nb[0] == '-')
 	{
 		negative = 1;
 		i++;
 	}
-	while (ft_isdigit(nb[i]))
+	while (nb[nb_zero + i] == '0')
+		nb_zero++;
+	while (ft_isdigit(nb[nb_zero + i]))
 		i++;
-	if ((negative && (i > 12 || i < 2)) || (!negative && (i > 11 || i < 1)))
-		return (0);
-	else if (!(nb[i] == 44 || nb[i] == 0))
+	if ((negative && (i > 12 || (!nb_zero && i < 2))) ||
+	(!negative && (i > 11 || (!nb_zero && !i))))
 		return (0);
 	return (1);
 }

@@ -1,36 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dtoi.c                                          :+:      :+:    :+:   */
+/*   ft_free_scene.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/28 16:48:33 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/03 17:38:32 by cdai             ###   ########.fr       */
+/*   Created: 2020/02/20 11:48:59 by cdai              #+#    #+#             */
+/*   Updated: 2020/02/20 11:54:02 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-int ft_dtoi(double nb)
+void	ft_free_scene(t_scene *scene)
 {
-	int i = 0;
+	int	i;
 
-	if (nb < 0)
+	i = 0;
+	while (i < 4)
 	{
-		while (-1 >= nb)
-		{
-			i--;
-			nb++;
-		}
+		if (scene->path[i])
+			free(scene->path[i]);
+		i++;
 	}
-	else
+	if (scene->sprite)
+		free(scene->sprite);
+	i = 0;
+	if (scene->map.data)
 	{
-		while (1 <= nb)
+		while (scene->map.data[i])
 		{
-			nb--;
+			free(scene->map.data[i]);
 			i++;
 		}
+		free(scene->map.data);
 	}
-	return i;
 }

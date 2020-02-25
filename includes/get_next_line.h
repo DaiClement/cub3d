@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_pixel.c                                     :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: cdai <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/25 10:55:44 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/25 10:56:04 by cdai             ###   ########.fr       */
+/*   Created: 2019/11/15 12:28:03 by cdai              #+#    #+#             */
+/*   Updated: 2020/01/10 14:15:41 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
 
-void	ft_put_pixel(char *img_data, char *color, int pos)
-{
-	int k;
+# include <unistd.h>
+# include <stdlib.h>
 
-	k = 0;
-	while (k < 4)
-	{
-		img_data[pos - k] = color[3 - k];
-		k++;
-	}
-}
+int				get_next_line(int fd, char **line);
+int				ft_init(char **line, char **temp);
+
+#endif

@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdai <marvin@42.fr>                        +#+  +:+       +#+         #
+#    By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/11/04 14:48:38 by cdai              #+#    #+#              #
-#    Updated: 2020/02/10 12:15:46 by cdai             ###   ########.fr        #
+#    Created: 2020/02/14 10:52:59 by cdai              #+#    #+#              #
+#    Updated: 2020/02/25 15:17:17 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INCLUDES	=	\
 				./includes/cub3d.h\
 				./includes/cub3d_struct.h\
-				./libft/libft.h\
-				./libft/get_next_line.h\
+				./includes/libft.h\
+				./includes//get_next_line.h\
 
 LIBFT_PATH	=	./libft/
 
@@ -65,40 +65,43 @@ LIBFT_SRCS	=	\
 				${LIBFT_PATH}get_next_line.c\
 				${LIBFT_PATH}get_next_line_utils.c\
 				${LIBFT_PATH}ft_charchr.c\
-				${LIBFT_PATH}ft_dtoi.c\
 
 LIBFT_OBJS	=	${LIBFT_SRCS:.c=.o}
 
 SRCS		=	\
-				srcs/ft_check_file_extention.c\
-				srcs/cub3d.c\
-				srcs/ft_parse_cub.c\
+				srcs/main.c\
 				srcs/ft_launch_game.c\
-				srcs/ft_free_all.c\
+				srcs/ft_parse_cub.c\
+				srcs/ft_check_file_extention.c\
+				srcs/ft_free_gnl_value.c\
 				srcs/ft_check_scene_element.c\
-				srcs/ft_fullfill_resolution.c\
-				srcs/ft_fullfill_path.c\
-				srcs/ft_fullfill_floor.c\
-				srcs/ft_fullfill_ceilling.c\
+				srcs/ft_set_resolution.c\
 				srcs/ft_check_atoi_max_min.c\
-				srcs/ft_isinrange.c\
-				srcs/ft_fullfill_map.c\
+				srcs/ft_str_isdigit.c\
+				srcs/ft_handle_path.c\
+				srcs/ft_handle_color.c\
+				srcs/ft_handle_map.c\
 				srcs/ft_check_n_parse_map.c\
-				srcs/ft_put_map_to_image.c\
-				srcs/ft_handle_sprite.c\
-				srcs/ft_handle_image.c\
-				srcs/ft_handle_keyboard.c\
-				srcs/ft_prepare_images.c\
+				srcs/ft_print_error.c\
+				srcs/ft_init_orientation.c\
+				srcs/ft_prepare_textures_n_sprite.c\
+				srcs/ft_free_data.c\
+				srcs/ft_free_scene.c\
+				srcs/ft_prepare_mlx.c\
+				srcs/ft_raycasting.c\
 				srcs/ft_handle_mouvement.c\
-				srcs/ft_handle_mouvement_utils.c\
-				srcs/ft_modulo_two_pi.c\
+				srcs/ft_handle_image.c\
+				srcs/ft_play_game.c\
+				srcs/ft_handle_keyboard.c\
+				srcs/ft_put_pixel_on_column.c\
 				srcs/ft_put_pixel.c\
+				srcs/ft_handle_sprite.c\
 
 OBJS		=	${SRCS:.c=.o}
 
 NAME		=	cub3D
 
-GRAPH_FLAGS	=	-lmlx -framework OpenGL -framework AppKit -O3
+GRAPH_FLAGS	=	-lmlx -framework OpenGL -framework AppKit -lm
 CFLAGS		=	-o ${FLAGS}
 FLAGS		=	-Wall -Wextra -Werror
 
@@ -110,8 +113,7 @@ AR			=	ar rc
 LIBFT		=	libft.a
 
 .c.o:
-				${CC} ${CFLAGS} -c $< -o ${<:.c=.o}\
-				-I${LIBFT_PATH} -I./includes/
+				${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I./includes
 
 ${NAME}:		${LIBFT_OBJS} ${OBJS} ${INCLUDES}
 				make -C libft
@@ -119,7 +121,6 @@ ${NAME}:		${LIBFT_OBJS} ${OBJS} ${INCLUDES}
 				${FLAGS}\
 				${GRAPH_FLAGS}\
 				${OBJS}\
-				-I${LIBFT_PATH}\
 				-I./includes/\
 				-L${LIBFT_PATH} -lft\
 
@@ -142,8 +143,11 @@ re:				fclean all
 test:			all
 				./${NAME} scene_description/subject.cub
 
+screenshot:
+				./${NAME} scene_description/subject.cub -save
+
 norm:
-				#make norm -C ${LIBFT_PATH}
+				make norm -C ${LIBFT_PATH}
 				norminette -R CheckForbiddenSourceHeader srcs includes
 
 leaks:
