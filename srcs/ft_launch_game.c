@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 11:39:28 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/28 15:23:55 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/02 17:40:42 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			ft_launch_game(char *filename)
 	if (!ft_prepare_mlx(&data) || !ft_prepare_textures_n_sprite(&data))
 		return (ft_free_data(&data));
 	else if (!(data.mlx.win = mlx_new_window(data.mlx.ptr, data.scene.width,
-		data.scene.height, "cub3D")))
+		data.scene.height, "Cub3D")))
 	{
 		ft_free_data(&data);
 		return (ft_print_error("MLX error (ft_launch_game)"));
