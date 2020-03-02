@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 11:03:38 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/25 15:28:23 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/02 17:20:49 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include "cub3d_struct.h"
 
 int		ft_launch_game(char *filename);
-void	temp_print_data(t_scene scene);
 int		ft_parse_cub(t_scene *scene, char *filename);
 int		ft_check_file_extention(char *filename, char *extention);
 void	ft_free_gnl_value(char **line, char **splited_data);
@@ -42,12 +41,14 @@ void	ft_free_scene(t_scene *scene);
 int		ft_prepare_mlx(t_game_data *data);
 void	ft_handle_image(t_game_data *data);
 void	ft_handle_mouvement(t_game_data *data);
-int		ft_raycasting(t_game_data *data, t_sprite *sprite_list);
+void	ft_raycasting(t_game_data *data, t_sprite *sprite_list);
 int		ft_play_game(t_game_data *data);
 int		ft_handle_keyboard(t_game_data *data);
 void	ft_put_pixel_on_column(t_game_data *data, double x);
 void	ft_put_pixel(char *img_data, char *color, int pos);
 int		ft_handle_sprite(t_game_data *data, double perp_wall_dist, double x,
 	t_sprite *sprite_list);
+int		ft_create_bmp_file(t_game_data *data);
+int		ft_take_screenshot(char *filename);
 
 #endif

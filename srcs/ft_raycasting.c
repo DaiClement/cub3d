@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:56:21 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/25 15:11:14 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/25 17:32:28 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,26 @@ static void	ft_cast_ray(t_calcul *calcul, t_camera *camera)
 	}
 }
 
-int			ft_raycasting(t_game_data *data, t_sprite *sprite_list)
+void		ft_raycasting(t_game_data *data, t_sprite *sprite_list)
 {
-	t_list		*temp;
 	int			i;
 	t_calcul	*calcul;
 
 	i = 0;
 	calcul = &data->calcul;
-	ft_cast_ray(calcul, &data->camera);
-	if (data->scene.map.data[calcul->map_y][calcul->map_x] == '1')
-		calcul->hit = 1;
-	else if (data->scene.map.data[calcul->map_y][calcul->map_x] == '2')
+	while (!calcul->hit)
 	{
-		while (i < data->scene.map.nb_sprite && sprite_list[i].x)
-			i++;
-		if (i < data->scene.map.nb_sprite)
+		ft_cast_ray(calcul, &data->camera);
+		if (data->scene.map.data[calcul->map_y][calcul->map_x] == '1')
+			calcul->hit = 1;
+		else if (data->scene.map.data[calcul->map_y][calcul->map_x] == '2')
 		{
-			sprite_list[i].x = calcul->map_x + 0.5;
-			sprite_list[i].y = calcul->map_y + 0.5;
+			if (i < data->scene.map.nb_sprite)
+			{
+				sprite_list[i].x = calcul->map_x + 0.5;
+				sprite_list[i].y = calcul->map_y + 0.5;
+			}
+			i++;
 		}
 	}
-	return (1);
 }

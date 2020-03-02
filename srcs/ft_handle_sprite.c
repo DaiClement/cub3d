@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 11:40:05 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/25 15:12:40 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/02 17:23:11 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	ft_put_sprite_pixel(t_game_data *data, t_sprite *sprite, double x)
 		(x - (-sprite->width / 2 + sprite->screen_x)) *
 		data->sprite.width / sprite->width;
 	init_pos = -(x * data->working_img.bits_per_pixel / 8 + 1);
-	y = sprite->draw_start_y - 1;
+	y = sprite->draw_start_y + 1;
 	while (++y < sprite->draw_end_y)
 	{
 		sprite->tex_y = ((y + (sprite->height - data->scene.height)
@@ -46,7 +46,7 @@ static void	ft_put_sprite_pixel(t_game_data *data, t_sprite *sprite, double x)
 		+ data->sprite.size_line - 4 - sprite->tex_x * 4;
 		if (!ft_is_black(&data->sprite.img_data[temp]))
 		{
-			pos = init_pos + y * data->working_img.size_line;
+			pos = init_pos + (y + 2) * data->working_img.size_line;
 			ft_put_pixel(data->working_img.img_data,
 				&data->sprite.img_data[temp], pos);
 		}
@@ -79,8 +79,8 @@ static void	ft_column_calcul(t_game_data *data, t_sprite *sprite, double x)
 	if (sprite->draw_start_x < 0)
 		sprite->draw_start_x = 0;
 	sprite->draw_end_x = sprite->width / 2 + sprite->screen_x;
-	if (sprite->draw_end_x >= data->scene.width)
-		sprite->draw_end_x = data->scene.width - 1;
+	if (sprite->draw_end_x > data->scene.width)
+		sprite->draw_end_x = data->scene.width;
 	if (x >= sprite->draw_start_x && x < sprite->draw_end_x)
 	{
 		sprite->height =
@@ -112,6 +112,7 @@ int			ft_handle_sprite(t_game_data *data, double perp_wall_dist, double x,
 			ft_init_sprite_calcul(data, sprite);
 			if (sprite->transform_y > 0 && sprite->transform_y < perp_wall_dist)
 				ft_column_calcul(data, sprite, x);
+			sprite_list[i].x = 0;
 		}
 		i--;
 	}

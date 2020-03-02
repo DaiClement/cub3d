@@ -6,7 +6,7 @@
 #    By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/14 10:52:59 by cdai              #+#    #+#              #
-#    Updated: 2020/02/25 15:28:32 by cdai             ###   ########.fr        #
+#    Updated: 2020/03/02 17:20:31 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ INCLUDES	=	\
 				./includes/cub3d.h\
 				./includes/cub3d_struct.h\
 				./includes/libft.h\
-				./includes//get_next_line.h\
+				./includes/get_next_line.h\
 
 LIBFT_PATH	=	./libft/
 
@@ -71,7 +71,6 @@ LIBFT_OBJS	=	${LIBFT_SRCS:.c=.o}
 SRCS		=	\
 				srcs/main.c\
 				srcs/ft_launch_game.c\
-				srcs/temp_print_data.c\
 				srcs/ft_parse_cub.c\
 				srcs/ft_check_file_extention.c\
 				srcs/ft_free_gnl_value.c\
@@ -97,6 +96,8 @@ SRCS		=	\
 				srcs/ft_put_pixel_on_column.c\
 				srcs/ft_put_pixel.c\
 				srcs/ft_handle_sprite.c\
+				srcs/ft_create_bmp_file.c\
+				srcs/ft_take_screenshot.c\
 
 OBJS		=	${SRCS:.c=.o}
 
@@ -105,7 +106,6 @@ NAME		=	cub3D
 GRAPH_FLAGS	=	-lmlx -framework OpenGL -framework AppKit -lm
 CFLAGS		=	-o ${FLAGS}
 FLAGS		=	-Wall -Wextra -Werror
-
 
 CC			=	gcc
 RM			=	rm -f
@@ -144,15 +144,12 @@ re:				fclean all
 test:			all
 				./${NAME} scene_description/subject.cub
 
-screenshot:
+screenshot:		all
 				./${NAME} scene_description/subject.cub -save
 
 norm:
-				make norm -C ${LIBFT_PATH}
+#				make norm -C ${LIBFT_PATH}
 				norminette -R CheckForbiddenSourceHeader srcs includes
-
-leaks:
-				leaks ${NAME}
 
 commit:
 				git add -A && git commit

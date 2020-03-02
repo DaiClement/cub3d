@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 11:05:51 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/25 12:23:31 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/25 17:47:00 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ typedef struct	s_scene
 	int		height;
 	char	floor_is_set;
 	char	ceilling_is_set;
-	char	floor[3];
-	char	ceilling[3];
+	char	floor[4];
+	char	ceilling[4];
 	t_map	map;
 }				t_scene;
 

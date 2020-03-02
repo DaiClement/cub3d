@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:36:21 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/25 14:17:01 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/02 17:19:48 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void		ft_handle_image(t_game_data *data)
 {
 	double		x;
 	t_sprite	sprite_list[data->scene.map.nb_sprite];
-	int			i;
 
 	x = 0;
 	ft_handle_mouvement(data);
@@ -98,16 +97,16 @@ void		ft_handle_image(t_game_data *data)
 		data->calcul.camera_x = (2 * x / data->scene.width) - 1;
 		ft_start_calcul(&data->calcul, &data->camera);
 		ft_set_direction_distance(&data->camera, &data->calcul);
-		while (data->calcul.hit == 0)
-			ft_raycasting(data, sprite_list);
+		ft_raycasting(data, sprite_list);
 		ft_set_column_height(data, &data->calcul, data->scene.height);
-		data->calcul.tex_x = (data->calcul.wall_x * data->sprite.width);
-		data->calcul.tex_x = data->sprite.width - data->calcul.tex_x - 1;
+		data->calcul.tex_x = data->calcul.wall_x
+			* data->textures[data->calcul.side].width;
+		data->calcul.tex_x = data->textures[data->calcul.side].width
+			- data->calcul.tex_x - 1;
 		ft_put_pixel_on_column(data, x);
+		data->calcul.tex_x = data->calcul.wall_x * data->sprite.width;
+		data->calcul.tex_x = data->sprite.width - data->calcul.tex_x - 1;
 		ft_handle_sprite(data, data->calcul.perp_wall_dist, x, sprite_list);
 		x++;
-		i = -1;
-		while (++i < data->scene.map.nb_sprite)
-			sprite_list[i].x = 0;
 	}
 }

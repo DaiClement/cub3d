@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 10:12:41 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/25 15:28:20 by cdai             ###   ########.fr       */
+/*   Updated: 2020/02/28 17:22:04 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ int	ft_handle_keyboard(t_game_data *data)
 	mlx_do_key_autorepeatoff(data->mlx.ptr);
 	mlx_hook(data->mlx.win, 2, 0, key_press_hook, data);
 	mlx_hook(data->mlx.win, 3, 0, key_release_hook, data);
-//	mlx_hook(win_ptr, 6, 0, motion_hook, data);
-//	mlx_hook(data->mlx.win, 12, 0, expose_hook, data);
 	mlx_hook(data->mlx.win, 17, 0, exit_hook, data);
 	return (0);
 }
