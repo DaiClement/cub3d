@@ -6,7 +6,7 @@
 #    By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/14 10:52:59 by cdai              #+#    #+#              #
-#    Updated: 2020/03/02 17:20:31 by cdai             ###   ########.fr        #
+#    Updated: 2020/03/02 17:44:59 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,7 +101,7 @@ SRCS		=	\
 
 OBJS		=	${SRCS:.c=.o}
 
-NAME		=	cub3D
+NAME		=	Cub3D
 
 GRAPH_FLAGS	=	-lmlx -framework OpenGL -framework AppKit -lm
 CFLAGS		=	-o ${FLAGS}
