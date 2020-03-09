@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 14:28:36 by cdai              #+#    #+#             */
-/*   Updated: 2020/03/09 11:22:42 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/09 14:04:08 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int			ft_set_resolution(t_scene *scene, char **splited_data)
 		return (0);
 	scene->width = ft_atoi(splited_data[1]);
 	scene->height = ft_atoi(splited_data[2]);
-	if (!scene->width || !scene->height)
-		return (0);
 	if (scene->width > 2560)
 		scene->width = 2560;
 	if (scene->height > 1440)
