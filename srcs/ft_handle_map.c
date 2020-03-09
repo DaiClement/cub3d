@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 15:07:24 by cdai              #+#    #+#             */
-/*   Updated: 2020/03/09 15:09:18 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/09 16:56:37 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			ft_handle_map(t_map *map, char *line)
 	char *temp;
 
 	if (*line && map->empty_line && map->data)
-		return (ft_print_error("Empty line in map"));
+		return (ft_print_error("Wrong character or empty line in map"));
 	else if (!*line)
 	{
 		if (map->data)

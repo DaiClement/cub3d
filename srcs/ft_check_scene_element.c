@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 14:17:17 by cdai              #+#    #+#             */
-/*   Updated: 2020/03/09 15:11:54 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/09 16:47:19 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,18 @@ static int	ft_check_ready_to_fullfill_map(t_scene *scene)
 
 static int	ft_check_type(char **splited_data)
 {
-	const char	*map[8] = {"NO", "SO", "WE", "EA", "S", "R", "F", "C"};
+	const char	*elem_type[8] = {"NO", "SO", "WE", "EA", "S", "R", "F", "C"};
 	int			i;
 	int			type_len;
-	int			map_len;
+	int			elem_type_len;
 
 	i = 0;
 	type_len = ft_strlen(splited_data[0]);
 	while (i < 8)
 	{
-		map_len = ft_strlen(map[i]);
-		if (type_len != map_len || ft_strncmp(splited_data[0], map[i], map_len))
+		elem_type_len = ft_strlen(elem_type[i]);
+		if (type_len != elem_type_len
+		|| ft_strncmp(splited_data[0], elem_type[i], elem_type_len))
 			i++;
 		else
 			return (i);
@@ -59,10 +60,9 @@ int			ft_check_scene_element(t_scene *scene, char **splited_data,
 
 	if (!splited_data)
 		return (ft_print_error("Malloc error"));
-	if (ft_check_ready_to_fullfill_map(scene)
-	&& ft_charchr("012 NSEW", line[0]))
+	if (ft_check_ready_to_fullfill_map(scene))
 		return (ft_handle_map(&scene->map, line));
-	if (*splited_data == NULL)
+	else if (*splited_data == NULL)
 		return (1);
 	elem_type = ft_check_type(splited_data);
 	if (elem_type == 5)
