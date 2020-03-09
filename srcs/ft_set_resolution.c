@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 14:28:36 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/24 11:47:16 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/09 11:22:42 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	ft_pre_atoi(char **splited_data)
 		return (ft_print_error("Resolution must have 2 arguments"));
 	else if (!ft_check_atoi_max_min(splited_data[1]) ||
 	!ft_check_atoi_max_min(splited_data[2]))
-		return (ft_print_error("Resolution over INT_MAX or INT_MIN"));
+		return (ft_print_error("Resolution over INT MAX or INT MIN"));
 	else if (!ft_str_isdigit(splited_data[1]) ||
 	!ft_str_isdigit(splited_data[2]))
 		return (ft_print_error("Resolution has not digit character"));
@@ -44,5 +44,9 @@ int			ft_set_resolution(t_scene *scene, char **splited_data)
 		scene->width = 2560;
 	if (scene->height > 1440)
 		scene->height = 1440;
+	if (scene->width < 200)
+		scene->width = 200;
+	if (scene->height < 100)
+		scene->height = 100;
 	return (1);
 }
