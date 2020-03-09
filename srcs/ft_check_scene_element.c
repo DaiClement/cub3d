@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 14:17:17 by cdai              #+#    #+#             */
-/*   Updated: 2020/03/05 16:51:55 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/09 15:11:54 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int			ft_check_scene_element(t_scene *scene, char **splited_data,
 
 	if (!splited_data)
 		return (ft_print_error("Malloc error"));
-	if (ft_check_ready_to_fullfill_map(scene))
+	if (ft_check_ready_to_fullfill_map(scene)
+	&& ft_charchr("012 NSEW", line[0]))
 		return (ft_handle_map(&scene->map, line));
 	if (*splited_data == NULL)
 		return (1);
