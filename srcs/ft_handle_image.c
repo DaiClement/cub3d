@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:36:21 by cdai              #+#    #+#             */
-/*   Updated: 2020/03/07 10:07:01 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/09 14:46:00 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_set_column_height(t_game_data *data, t_calcul *calcul,
 			+ (1 - calcul->step_y) / 2) / calcul->ray_dir_y);
 	calcul->lign_height = fabs(win_height / calcul->perp_wall_dist);
 	calcul->draw_start = (-calcul->lign_height + win_height) / 2;
-	calcul->draw_end = (calcul->lign_height + win_height) / 2;
+	calcul->draw_end = (calcul->lign_height + win_height - 1) / 2;
 	if (calcul->draw_start < 0)
 		calcul->draw_start = 0;
 	if (calcul->draw_end > win_height)
