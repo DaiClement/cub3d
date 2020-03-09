@@ -6,32 +6,34 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 11:03:38 by cdai              #+#    #+#             */
-/*   Updated: 2020/03/02 17:20:49 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/09 10:09:14 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <mlx.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <errno.h>
-# include <mlx.h>
 # include <math.h>
 # include "libft.h"
 # include "cub3d_struct.h"
+# include <OpenGL/gl.h>
+# include "mlx_int.h"
 
 int		ft_launch_game(char *filename);
 int		ft_parse_cub(t_scene *scene, char *filename);
 int		ft_check_file_extention(char *filename, char *extention);
-void	ft_free_gnl_value(char **line, char **splited_data);
-int		ft_check_scene_element(t_scene *scene, char **splited_data);
+int		ft_free_gnl_value(char **line, char **splited_data);
+int		ft_check_scene_element(t_scene *scene, char **splited_data, char *line);
 int		ft_set_resolution(t_scene *scene, char **splited_data);
 int		ft_check_atoi_max_min(char *nb);
 int		ft_str_isdigit(char *str);
 int		ft_handle_path(t_scene *scene, char **splited_data, int elem_type);
 int		ft_handle_color(t_scene *scene, char **splited_data, int elem_type);
-int		ft_handle_map(t_map *map, char **splited_data);
+int		ft_handle_map(t_map *map, char *line);
 int		ft_check_n_parse_map(t_map *map);
 int		ft_print_error(char *error_msg);
 void	ft_init_orientation(t_game_data *data);
@@ -50,5 +52,6 @@ int		ft_handle_sprite(t_game_data *data, double perp_wall_dist, double x,
 	t_sprite *sprite_list);
 int		ft_create_bmp_file(t_game_data *data);
 int		ft_take_screenshot(char *filename);
+int		ft_find_map_exit(char **temp, t_map *map);
 
 #endif

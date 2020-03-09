@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 12:09:44 by cdai              #+#    #+#             */
-/*   Updated: 2020/03/02 17:21:53 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/09 11:06:46 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,19 @@ static int	ft_read_n_set_element(t_scene *scene, int fd)
 	if (gnl_value == 1 || gnl_value == 0)
 	{
 		splited_data = ft_split(line, ' ');
-		if (!(ft_check_scene_element(scene, splited_data)))
+		if (ft_strlen(line) > 500)
 		{
-			ft_free_gnl_value(&line, splited_data);
-			return (-1);
+			ft_print_error("A Line is too long");
+			return (ft_free_gnl_value(&line, splited_data));
 		}
+		else if (!(ft_check_scene_element(scene, splited_data, line)))
+			return (ft_free_gnl_value(&line, splited_data));
 		ft_free_gnl_value(&line, splited_data);
 	}
 	else
 	{
-		ft_free_gnl_value(&line, splited_data);
 		ft_print_error("GNL error");
-		return (-1);
+		return (ft_free_gnl_value(&line, splited_data));
 	}
 	return (gnl_value);
 }

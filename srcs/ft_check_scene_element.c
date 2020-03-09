@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/14 14:17:17 by cdai              #+#    #+#             */
-/*   Updated: 2020/02/24 11:40:02 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/05 16:51:55 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ static int	ft_check_type(char **splited_data)
 	return (-1);
 }
 
-int			ft_check_scene_element(t_scene *scene, char **splited_data)
+int			ft_check_scene_element(t_scene *scene, char **splited_data,
+	char *line)
 {
 	int	elem_type;
 
 	if (!splited_data)
 		return (ft_print_error("Malloc error"));
 	if (ft_check_ready_to_fullfill_map(scene))
-		return (ft_handle_map(&scene->map, splited_data));
+		return (ft_handle_map(&scene->map, line));
 	if (*splited_data == NULL)
 		return (1);
 	elem_type = ft_check_type(splited_data);

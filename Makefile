@@ -6,7 +6,7 @@
 #    By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/14 10:52:59 by cdai              #+#    #+#              #
-#    Updated: 2020/03/02 17:44:59 by cdai             ###   ########.fr        #
+#    Updated: 2020/03/07 10:41:18 by cdai             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,7 @@ SRCS		=	\
 				srcs/ft_handle_sprite.c\
 				srcs/ft_create_bmp_file.c\
 				srcs/ft_take_screenshot.c\
+				srcs/ft_find_map_exit.c\
 
 OBJS		=	${SRCS:.c=.o}
 
@@ -147,7 +148,7 @@ test:			all
 screenshot:		all
 				./${NAME} scene_description/subject.cub -save
 
-norm:
+norm:			fclean
 #				make norm -C ${LIBFT_PATH}
 				norminette -R CheckForbiddenSourceHeader srcs includes
 

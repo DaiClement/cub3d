@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 11:40:05 by cdai              #+#    #+#             */
-/*   Updated: 2020/03/02 17:23:11 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/05 16:35:41 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,14 @@ static void	ft_init_sprite_calcul(t_game_data *data, t_sprite *sprite)
 	sprite->sprite_x = sprite->x - data->camera.pos_x;
 	sprite->sprite_y = sprite->y - data->camera.pos_y;
 	sprite->inv_det = 1.0
-		/ (data->camera.plane_x * data->camera.dir_y
+		/ (data->camera.dir_y * data->camera.plane_x
 		- data->camera.dir_x * data->camera.plane_y);
-	sprite->transform_x = sprite->inv_det
+	sprite->transform_x =
+		sprite->inv_det
 		* (data->camera.dir_y * sprite->sprite_x
 		- data->camera.dir_x * sprite->sprite_y);
-	sprite->transform_y = sprite->inv_det
+	sprite->transform_y =
+		sprite->inv_det
 		* (-data->camera.plane_y * sprite->sprite_x
 		+ data->camera.plane_x * sprite->sprite_y);
 }
@@ -72,10 +74,8 @@ static void	ft_column_calcul(t_game_data *data, t_sprite *sprite, double x)
 {
 	sprite->screen_x = ((data->scene.width / 2)
 		* (1 + sprite->transform_x / sprite->transform_y));
-	sprite->width = fabs(data->scene.height
-		/ (sprite->transform_y));
-	sprite->draw_start_x = -sprite->width / 2
-		+ sprite->screen_x;
+	sprite->width = fabs(data->scene.height / (sprite->transform_y));
+	sprite->draw_start_x = -sprite->width / 2 + sprite->screen_x;
 	if (sprite->draw_start_x < 0)
 		sprite->draw_start_x = 0;
 	sprite->draw_end_x = sprite->width / 2 + sprite->screen_x;
@@ -83,14 +83,11 @@ static void	ft_column_calcul(t_game_data *data, t_sprite *sprite, double x)
 		sprite->draw_end_x = data->scene.width;
 	if (x >= sprite->draw_start_x && x < sprite->draw_end_x)
 	{
-		sprite->height =
-			fabs((data->scene.height / (sprite->transform_y)));
-		sprite->draw_start_y =
-			-sprite->height / 2 + data->scene.height / 2;
+		sprite->height = fabs((data->scene.height / (sprite->transform_y)));
+		sprite->draw_start_y = -sprite->height / 2 + data->scene.height / 2;
 		if (sprite->draw_start_y < 0)
 			sprite->draw_start_y = 0;
-		sprite->draw_end_y =
-			sprite->height / 2 + data->scene.height / 2;
+		sprite->draw_end_y = sprite->height / 2 + data->scene.height / 2;
 		if (sprite->draw_end_y >= data->scene.height)
 			sprite->draw_end_y = data->scene.height - 1;
 		ft_put_sprite_pixel(data, sprite, x);

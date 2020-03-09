@@ -6,7 +6,7 @@
 /*   By: cdai <cdai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 17:36:21 by cdai              #+#    #+#             */
-/*   Updated: 2020/03/02 17:19:48 by cdai             ###   ########.fr       */
+/*   Updated: 2020/03/07 10:07:01 by cdai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static void	ft_set_column_height(t_game_data *data, t_calcul *calcul,
 	else
 		calcul->perp_wall_dist = fabs((calcul->map_y - data->camera.pos_y
 			+ (1 - calcul->step_y) / 2) / calcul->ray_dir_y);
-	calcul->lign_height = fabs(win_height
-			/ calcul->perp_wall_dist);
+	calcul->lign_height = fabs(win_height / calcul->perp_wall_dist);
 	calcul->draw_start = (-calcul->lign_height + win_height) / 2;
 	calcul->draw_end = (calcul->lign_height + win_height) / 2;
 	if (calcul->draw_start < 0)
@@ -40,6 +39,7 @@ static void	ft_set_column_height(t_game_data *data, t_calcul *calcul,
 			+ (1 - calcul->step_x) / 2)
 			/ calcul->ray_dir_x) * calcul->ray_dir_y;
 	calcul->wall_x -= floor(calcul->wall_x);
+	calcul->wall_x = (calcul->wall_x == 0.0) ? 0.001 : calcul->wall_x;
 }
 
 static void	ft_start_calcul(t_calcul *calcul, t_camera *camera)
@@ -49,11 +49,11 @@ static void	ft_start_calcul(t_calcul *calcul, t_camera *camera)
 	calcul->map_x = camera->pos_x;
 	calcul->map_y = camera->pos_y;
 	calcul->delta_dist_x = sqrt(1
-			+ (calcul->ray_dir_y * calcul->ray_dir_y)
-			/ (calcul->ray_dir_x * calcul->ray_dir_x));
+		+ (calcul->ray_dir_y * calcul->ray_dir_y)
+		/ (calcul->ray_dir_x * calcul->ray_dir_x));
 	calcul->delta_dist_y = sqrt(1
-			+ (calcul->ray_dir_x * calcul->ray_dir_x)
-			/ (calcul->ray_dir_y * calcul->ray_dir_y));
+		+ (calcul->ray_dir_x * calcul->ray_dir_x)
+		/ (calcul->ray_dir_y * calcul->ray_dir_y));
 	calcul->hit = 0;
 }
 
@@ -62,8 +62,8 @@ static void	ft_set_direction_distance(t_camera *camera, t_calcul *calcul)
 	if (calcul->ray_dir_x < 0)
 	{
 		calcul->step_x = -1;
-		calcul->side_dist_x = (camera->pos_x - calcul->map_x)
-			* calcul->delta_dist_x;
+		calcul->side_dist_x = calcul->delta_dist_x
+			* (-calcul->map_x + camera->pos_x);
 	}
 	else
 	{
@@ -75,7 +75,7 @@ static void	ft_set_direction_distance(t_camera *camera, t_calcul *calcul)
 	{
 		calcul->step_y = -1;
 		calcul->side_dist_y = calcul->delta_dist_y
-			* (camera->pos_y - calcul->map_y);
+			* (-calcul->map_y + camera->pos_y);
 	}
 	else
 	{
@@ -102,10 +102,10 @@ void		ft_handle_image(t_game_data *data)
 		data->calcul.tex_x = data->calcul.wall_x
 			* data->textures[data->calcul.side].width;
 		data->calcul.tex_x = data->textures[data->calcul.side].width
-			- data->calcul.tex_x - 1;
+			- data->calcul.tex_x + 1;
 		ft_put_pixel_on_column(data, x);
 		data->calcul.tex_x = data->calcul.wall_x * data->sprite.width;
-		data->calcul.tex_x = data->sprite.width - data->calcul.tex_x - 1;
+		data->calcul.tex_x = data->sprite.width - data->calcul.tex_x;
 		ft_handle_sprite(data, data->calcul.perp_wall_dist, x, sprite_list);
 		x++;
 	}
