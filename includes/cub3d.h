@@ -20,7 +20,8 @@
 # include <math.h>
 # include "libft.h"
 # include "cub3d_struct.h"
-# include <OpenGL/gl.h>
+//# include <OpenGL/gl.h>
+# include <GL/gl.h>
 # include "mlx_int.h"
 
 int		ft_launch_game(char *filename);

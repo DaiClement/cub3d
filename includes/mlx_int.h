@@ -19,7 +19,8 @@
 # define FONT_WIDTH 10
 # define FONT_HEIGHT 20
 
-# include <OpenGL/gl.h>
+//# include <OpenGL/gl.h>
+# include <GL/gl.h>
 
 typedef struct	s_glsl_info
 {

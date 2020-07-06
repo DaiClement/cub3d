@@ -18,6 +18,7 @@ static int	ft_read_n_set_element(t_scene *scene, int fd)
 	char	**splited_data;
 	int		gnl_value;
 
+	splited_data = 0;
 	gnl_value = get_next_line(fd, &line);
 	if (gnl_value == 1 || gnl_value == 0)
 	{

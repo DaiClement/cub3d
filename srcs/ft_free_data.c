@@ -56,6 +56,6 @@ int			ft_free_data(t_game_data *data)
 {
 	ft_free_scene(&data->scene);
 	ft_free_mlx(data);
-	ft_free_mlx_leaks(data);
+//	ft_free_mlx_leaks(data);
 	return (0);
 }

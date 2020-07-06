@@ -108,23 +108,25 @@ GRAPH_FLAGS	=	-lmlx -framework OpenGL -framework AppKit -lm
 CFLAGS		=	-o ${FLAGS}
 FLAGS		=	-Wall -Wextra -Werror
 
-CC			=	gcc
+CC			=	clang
 RM			=	rm -f
 AR			=	ar rc
 
 LIBFT		=	libft.a
 
 .c.o:
-				${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I./includes
+##				${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I./includes
+			${CC} -c $< -o ${<:.c=.o} -I./includes -I/usr/local/include 
 
 ${NAME}:		${LIBFT_OBJS} ${OBJS} ${INCLUDES}
 				make -C libft
-				${CC} -o ${NAME}\
-				${FLAGS}\
-				${GRAPH_FLAGS}\
-				${OBJS}\
-				-I./includes/\
-				-L${LIBFT_PATH} -lft\
+				clang -I/usr/local/include -g -L/usr/local/lib ${OBJS} -o ${NAME} -lX11 -lXext -lm -lbsd -lmlx -L${LIBFT_PATH} -lft -I./includes
+#				${CC} -o ${NAME}\
+#				${FLAGS}\
+#				${GRAPH_FLAGS}\
+#				${OBJS}\
+#				-I./includes/\
+#				-L${LIBFT_PATH} -lft\
 
 all:			${NAME}
 
